@@ -1,0 +1,30 @@
+.follow-right{
+	position: fixed;
+	top: 1em;
+	right: 1em;
+}
+
+.follow-left{
+	position: fixed;
+	top: 1em;
+	left: 1em;
+}
+
+.rainbow-spinning {
+	background-color: red;
+	animation-name: rainbow-spin;
+	animation-duration: 2s;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+
+@keyframes rainbow-spin{
+	0% {background-color: red; transform: rotate(0deg)}
+	15% {background-color: green; transform: rotate(55deg)}
+	30% {background-color: blue; transform: rotate(110deg)}
+	45% {background-color: orange; transform: rotate(164deg)}
+	60% {background-color: cyan; transform: rotate(219deg)}
+	75% {background-color: purple; transform: rotate(274deg)}
+	90% {background-color: pink; transform: rotate(329deg)}
+	100% {background-color: red; transform: rotate(360deg)}
+}

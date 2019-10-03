@@ -41,8 +41,8 @@ exports.create = function(req, res) {
       console.log(err);
       res.status(400).send(err);
     } else {
-      res.json(listing);
-      console.log(listing)
+			res.json(listing)
+			console.log("Created listing with code " + req.body.code)
     }
   });
 };
@@ -58,24 +58,59 @@ exports.update = function(req, res) {
   var listing = req.listing;
 
   /* Replace the listings's properties with the new properties found in req.body */
+	listing.code = req.body.code
+	listing.name = req.body.name
+	listing.address = req.body.address
  
   /*save the coordinates (located in req.results if there is an address property) */
+	listing.coordinates.latitude = req.results.lat
+	listing.coordinates.longitude = req.results.lng
  
   /* Save the listing */
+
+	listing.save(function(err) {
+		if(err){
+			console.log(err)
+			res.status(400).send(err)
+		}else{
+			res.json(listing)
+			console.log("Created listing with new code " + req.body.code)
+		}
+	})
 
 };
 
 /* Delete a listing */
 exports.delete = function(req, res) {
   var listing = req.listing;
+	var old_code = listing.code
 
-  /* Add your code to remove the listins */
+	listing.remove(function(err){
+		if(err){
+			console.log(err)
+			res.status(400).send(err)
+		}else{
+			console.log("Deleted listing with code " + old_code)
+			res.status(200).send()
+		}
+	})
+
+
 
 };
 
 /* Retreive all the directory listings, sorted alphabetically by listing code */
 exports.list = function(req, res) {
   /* Add your code */
+	Listing.find({}, function(err, listings){
+		if(err){
+			console.log(err)
+			res.status(400).send(err)
+		}else{
+			console.log("Retrieved all " + listings.length + " listings.")
+			res.json(listings)
+		}
+	})
 };
 
 /* 
